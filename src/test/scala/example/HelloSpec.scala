@@ -1,9 +1,14 @@
 package example
 
-import org.scalatest._
+import assets.TestSpec
 
-class HelloSpec extends FlatSpec with Matchers {
-  "The Hello object" should "say hello" in {
-    Hello.greeting shouldEqual "hello"
+class HelloSpec extends TestSpec {
+
+  "The Hello object" should {
+    "say hello" in {
+      val result = Hello.greeting
+
+      result shouldBe "hello"
+    }
   }
 }

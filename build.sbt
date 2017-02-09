@@ -9,6 +9,6 @@ lazy val root = (project in file(".")).
     )),
     name := "ToL-Scout-Plugin",
     libraryDependencies += sponge,
-    libraryDependencies += scalaTest % "test",
+    libraryDependencies ++= Seq(scalaTest % "test", mockito % "test"),
     resolvers += "SpongePowered" at "https://repo.spongepowered.org/maven/"
   )

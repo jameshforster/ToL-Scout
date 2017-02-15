@@ -1,4 +1,4 @@
-package assets
+package helpers
 
 import org.scalatest.{Matchers, WordSpec}
 

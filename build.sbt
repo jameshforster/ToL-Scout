@@ -1,4 +1,5 @@
 import Dependencies._
+import sbt.Keys._
 
 lazy val root = (project in file(".")).
   settings(
@@ -10,5 +11,9 @@ lazy val root = (project in file(".")).
     name := "ToL-Scout-Plugin",
     libraryDependencies += sponge,
     libraryDependencies ++= Seq(scalaTest % "test", mockito % "test"),
-    resolvers += "SpongePowered" at "https://repo.spongepowered.org/maven/"
+    resolvers += "SpongePowered" at "https://repo.spongepowered.org/maven/",
+    coverageEnabled := true,
+    coverageMinimum := 80,
+    coverageFailOnMinimum := false,
+    coverageExcludedPackages := "*ScoutPlugin.*"
   )

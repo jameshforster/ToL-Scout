@@ -11,6 +11,8 @@ class ServerRequestHandler @Inject()(game: Game) {
 
   def handleRequest[T](f: => T): Try[T] = {
     if (game.isServerAvailable) Try(f)
-    else Failure(NotStartedException())
+    else {
+      Failure(NotStartedException())
+    }
   }
 }

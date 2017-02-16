@@ -1,6 +1,6 @@
 package handlers
 
-import exceptions.NotStartedException
+import exceptions.ServerNotStartedException
 import helpers.TestSpec
 import org.mockito.Mockito._
 import org.spongepowered.api.{Game, Server}
@@ -28,7 +28,7 @@ class ServerRequestHandlerSpec extends TestSpec {
         testFunction()
       }
 
-      result shouldBe Failure(NotStartedException())
+      result shouldBe Failure(ServerNotStartedException())
     }
 
     "return a valid result when a server is running" when {

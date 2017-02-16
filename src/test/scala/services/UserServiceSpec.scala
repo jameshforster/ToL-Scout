@@ -1,13 +1,13 @@
 package services
 
 import java.util
-import java.util.logging.Logger
 
 import connectors.GameConnector
 import exceptions.ServerNotRespondingException
 import handlers.ServerRequestHandler
 import helpers.TestSpec
 import org.mockito.Mockito._
+import org.slf4j.Logger
 import org.spongepowered.api.entity.living.player.Player
 import org.spongepowered.api.{Game, Server}
 

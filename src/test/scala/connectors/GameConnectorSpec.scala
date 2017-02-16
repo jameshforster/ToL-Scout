@@ -1,10 +1,9 @@
 package connectors
 
-import java.util.logging.Logger
-
 import exceptions.ServerNotRespondingException
 import helpers.TestSpec
 import org.mockito.Mockito._
+import org.slf4j.Logger
 import org.spongepowered.api.{Game, Server}
 
 import scala.util.{Failure, Success}

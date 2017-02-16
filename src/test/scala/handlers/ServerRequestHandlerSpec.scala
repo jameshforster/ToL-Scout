@@ -1,15 +1,16 @@
 package handlers
 
-import java.util.logging.Logger
-
 import exceptions.ServerNotStartedException
 import helpers.TestSpec
 import org.mockito.Mockito._
+import org.slf4j.Logger
 import org.spongepowered.api.{Game, Server}
 
-import scala.util.{Failure, Success}
+import scala.util.{Failure, Success, Try}
 
 class ServerRequestHandlerSpec extends TestSpec {
+
+  val mockLogger = mock[Logger]
 
   def setupMockGame(isStarted: Boolean): Game = {
 
@@ -21,12 +22,11 @@ class ServerRequestHandlerSpec extends TestSpec {
     mockGame
   }
 
-  val mockLogger = mock[Logger]
-
   "Calling .handleRequest" should {
 
     "return a NotStartedException when a server is not running" in {
-      def testFunction() = setupMockGame(false).getServer
+      def testFunction() = Try(setupMockGame(false).getServer)
+
       val handler = new ServerRequestHandler(setupMockGame(false), mockLogger)
       lazy val result = handler.handleRequest[Server] {
         testFunction()
@@ -39,7 +39,8 @@ class ServerRequestHandlerSpec extends TestSpec {
       val handler = new ServerRequestHandler(setupMockGame(true), mockLogger)
 
       "provided with a parameterless function" in {
-        def testFunction(): Boolean = true
+        def testFunction() = Try(true)
+
         lazy val result = handler.handleRequest[Boolean] {
           testFunction()
         }
@@ -48,7 +49,8 @@ class ServerRequestHandlerSpec extends TestSpec {
       }
 
       "provided with a single variable function" in {
-        def testFunction(input: Int): Boolean = input > 0
+        def testFunction(input: Int) = Try(input > 0)
+
         lazy val result = handler.handleRequest[Boolean] {
           testFunction(3)
         }
@@ -57,7 +59,8 @@ class ServerRequestHandlerSpec extends TestSpec {
       }
 
       "provided with a multiple variable function" in {
-        def testFunction(value1: Int, value2: Int): Boolean = value1.equals(value2)
+        def testFunction(value1: Int, value2: Int) = Try(value1.equals(value2))
+
         lazy val result = handler.handleRequest[Boolean] {
           testFunction(2, 2)
         }

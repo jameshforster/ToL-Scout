@@ -1,9 +1,8 @@
 package connectors
 
-import java.util.logging.Logger
-
 import com.google.inject.{Inject, Singleton}
 import exceptions.ServerNotRespondingException
+import org.slf4j.Logger
 import org.spongepowered.api.{Game, Server}
 
 import scala.util.{Failure, Success, Try}
@@ -16,7 +15,7 @@ class GameConnector @Inject()(game: Game, logger: Logger) {
   } match {
     case Success(server) => Success(server)
     case Failure(error) =>
-      logger.warning(error.getMessage)
+      logger.warn(error.getMessage)
       Failure(ServerNotRespondingException())
   }
 }

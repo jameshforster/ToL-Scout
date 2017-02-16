@@ -1,5 +1,7 @@
 package handlers
 
+import java.util.logging.Logger
+
 import exceptions.ServerNotStartedException
 import helpers.TestSpec
 import org.mockito.Mockito._
@@ -19,11 +21,13 @@ class ServerRequestHandlerSpec extends TestSpec {
     mockGame
   }
 
+  val mockLogger = mock[Logger]
+
   "Calling .handleRequest" should {
 
     "return a NotStartedException when a server is not running" in {
       def testFunction() = setupMockGame(false).getServer
-      val handler = new ServerRequestHandler(setupMockGame(false))
+      val handler = new ServerRequestHandler(setupMockGame(false), mockLogger)
       lazy val result = handler.handleRequest[Server] {
         testFunction()
       }
@@ -32,7 +36,7 @@ class ServerRequestHandlerSpec extends TestSpec {
     }
 
     "return a valid result when a server is running" when {
-      val handler = new ServerRequestHandler(setupMockGame(true))
+      val handler = new ServerRequestHandler(setupMockGame(true), mockLogger)
 
       "provided with a parameterless function" in {
         def testFunction(): Boolean = true

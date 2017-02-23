@@ -15,5 +15,5 @@ lazy val root = (project in file(".")).
     coverageEnabled := true,
     coverageMinimum := 80,
     coverageFailOnMinimum := false,
-    coverageExcludedPackages := "ScoutPlugin.*"
+    coverageExcludedPackages := "plugin.ScoutPlugin.*"
   )

@@ -9,7 +9,7 @@ lazy val root = (project in file(".")).
       version      := "0.1.0-SNAPSHOT"
     )),
     name := "ToL-Scout-Plugin",
-    libraryDependencies ++= Seq(sponge, apacheHttpCore, apacheHttpClient),
+    libraryDependencies ++= Seq(sponge, apacheHttpCore, apacheHttpClient, jacksonCore, jacksonDatabind),
     libraryDependencies ++= Seq(scalaTest % "test", mockito % "test"),
     resolvers += "SpongePowered" at "https://repo.spongepowered.org/maven/",
     coverageEnabled := true,

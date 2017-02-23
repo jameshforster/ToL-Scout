@@ -6,6 +6,7 @@ import connectors.GameConnector
 import exceptions.ServerNotRespondingException
 import handlers.ServerRequestHandler
 import helpers.TestSpec
+import models.UserModel
 import org.mockito.Mockito._
 import org.slf4j.Logger
 import org.spongepowered.api.entity.living.player.Player
@@ -40,15 +41,43 @@ class UserServiceSpec extends TestSpec {
     mockServer
   }
 
-  "Calling .fetchOnlineUsers" should {
+  def setupMockPlayer(name: String): Player = {
+    val mockPlayer = mock[Player]
 
-    "return a list of users from the server" in {
+    when(mockPlayer.getName)
+      .thenReturn(name)
+
+    mockPlayer
+  }
+
+  "Calling .fetchOnlinePlayers" should {
+
+    "return a list of players from the server" in {
       val playerList = List(mock[Player], mock[Player])
       val server = setupMockServer(playerList.asJava)
       val service = setupMockService(Success(server))
-      val result = service.fetchOnlineUsers()
+      val result = service.fetchOnlinePlayers()
 
       result shouldBe Success(playerList)
+    }
+
+    "return a failure when an error is thrown" in {
+      val service = setupMockService(Failure(ServerNotRespondingException()))
+      val result = service.fetchOnlinePlayers()
+
+      result shouldBe Failure(ServerNotRespondingException())
+    }
+  }
+
+  "Calling .fetchOnlineUsers" should {
+
+    "return a list of users from the server" in {
+      val mockPlayers = List(setupMockPlayer("name1"), setupMockPlayer("name2"))
+      val server = setupMockServer(mockPlayers.asJava)
+      val service = setupMockService(Success(server))
+      val result = service.fetchOnlineUsers()
+
+      result shouldBe Success(List(UserModel("name1"), UserModel("name2")))
     }
 
     "return a failure when an error is thrown" in {

@@ -2,6 +2,6 @@ package controllers
 
 import helpers.TestSpec
 
-class UserControllerSpec extends TestSpec {
+class ServerControllerSpec extends TestSpec {
 
 }

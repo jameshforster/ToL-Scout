@@ -8,37 +8,29 @@ import org.slf4j.Logger
 
 class StdHttpExceptionHandlerSpec extends TestSpec {
 
-  "An http exception" which {
-    val handler = new StdHttpExceptionHandler(mock[Logger])
+  val handler = new StdHttpExceptionHandler(mock[Logger])
 
-    "has the type SocketTimeoutException" should {
+  "The HttpExceptionHandler" should {
 
-      "be handled by the HttpExceptionHandler correctly" in {
-        val exception = new SocketTimeoutException()
-        val result = handler.log(exception)
+    "handle a SocketTimeoutException" in {
+      val exception = new SocketTimeoutException()
+      val result = handler.log(exception)
 
-        result shouldBe {}
-      }
+      result shouldBe {}
     }
 
-    "has the type ConnectionClosedException" should {
+    "handle a ConnectionClosedException" in {
+      val exception = new ConnectionClosedException("")
+      val result = handler.log(exception)
 
-      "be handled by the HttpExceptionHandler correctly" in {
-        val exception = new ConnectionClosedException("")
-        val result = handler.log(exception)
-
-        result shouldBe {}
-      }
+      result shouldBe {}
     }
 
-    "is a generic Exception" should {
+    "handle a generic Exception" in {
+      val exception = new Exception("test message")
+      val result = handler.log(exception)
 
-      "be handled by the HttpExceptionHandler correctly" in {
-        val exception = new Exception("test message")
-        val result = handler.log(exception)
-
-        result shouldBe {}
-      }
+      result shouldBe {}
     }
   }
 }

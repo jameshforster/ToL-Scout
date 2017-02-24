@@ -14,10 +14,10 @@ import org.spongepowered.api.config.DefaultConfig
 import scala.util.{Failure, Try}
 
 @Singleton
-@DefaultConfig(sharedRoot = true)
-class ApplicationConfig @Inject()(logger: Logger, path: Path) extends AppConfig {
+class ApplicationConfig @Inject()(logger: Logger, @DefaultConfig(sharedRoot = true) path: Path) extends AppConfig {
 
   private val rootNode: Try[ConfigurationNode] = Try {
+
     val loader: ConfigurationLoader[CommentedConfigurationNode] = HoconConfigurationLoader.builder().setPath(path).build()
     val jarConfigFile = Sponge.getAssetManager.getAsset("defaultConfig.conf").get().getUrl
     val defaultLoader: ConfigurationLoader[CommentedConfigurationNode] = HoconConfigurationLoader.builder().setURL(jarConfigFile).build()

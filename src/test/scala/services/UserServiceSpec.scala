@@ -8,7 +8,7 @@ import exceptions.ServerNotRespondingException
 import handlers.ServerRequestHandler
 import helpers.TestSpec
 import models.UserModel
-import org.mockito.Matchers
+import org.mockito.ArgumentMatchers
 import org.mockito.Mockito._
 import org.slf4j.Logger
 import org.spongepowered.api.entity.living.player.Player
@@ -49,7 +49,7 @@ class UserServiceSpec extends TestSpec {
     when(mockPlayer.getName)
       .thenReturn(name)
 
-    when(mockPlayer.hasPermission(Matchers.any()))
+    when(mockPlayer.hasPermission(ArgumentMatchers.any()))
       .thenReturn(isMod)
 
     mockPlayer

@@ -43,11 +43,14 @@ class ApplicationConfig @Inject()(logger: Logger, @DefaultConfig(sharedRoot = tr
     }
   }
 
-  implicit private val getInt: ConfigurationNode => Int = config => config.getInt
+  implicit private val getInt: ConfigurationNode => Int = _.getInt()
+  implicit private val getBoolean: ConfigurationNode => Boolean = _.getBoolean()
 
   val listenerPort: Int = getConfig[Int]("server", "port").get
+  val hideMods: Boolean = getConfig[Boolean]("settings", "hideMods").get
 }
 
 trait AppConfig {
   val listenerPort: Int
+  val hideMods: Boolean
 }

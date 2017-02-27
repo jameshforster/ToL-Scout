@@ -13,7 +13,7 @@ lazy val root = (project in file(".")).
     libraryDependencies ++= Seq(scalaTest % "test", mockito % "test"),
     resolvers += "SpongePowered" at "https://repo.spongepowered.org/maven/",
     coverageEnabled := true,
-    coverageMinimum := 80,
-    coverageFailOnMinimum := false,
+    coverageMinimum := 100,
+    coverageFailOnMinimum := true,
     coverageExcludedPackages := "plugin.ScoutPlugin.*; config.*"
   )
